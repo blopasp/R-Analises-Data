@@ -85,8 +85,8 @@ entMail = OutApp$CreateItem(0)
 entMail$GetInspector()
 sign = entMail[["HTMLBody"]]
 
-entMail[["To"]] = c("williamsantos@pmenos.com.br","miguelsilva@pmenos.com.br")
-entMail[["bcc"]] = "pabloandreson@gmail.com"
+entMail[["To"]] = c("EMAILs SENDNG")
+entMail[["bcc"]] = EMAIL
 entMail[["subject"]] = assunto
 entMail[["htmlbody"]] = paste0(corpo,sign)
 
@@ -102,20 +102,3 @@ entMail$Display()
 #entMail$Send()
 
 gc()
-
-rm(dia,mes,ano,corpo,entMail,test, test1, m,mes,mes_atual,data, lanc, OutApp)
-
-rm(soma_lanc)
-rm(lanc)
-rm(soma_elanc)
-rm(elanc)
-rm(per_lanc)
-rm(soma_reg)
-rm(reg)
-rm(soma_ereg)
-rm(ereg)
-rm(per_reg)
-rm(OutApp)
-#rm(base)
-#rm(base_lanc)
-#rm(base_reg)
