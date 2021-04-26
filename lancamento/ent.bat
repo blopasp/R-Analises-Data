@@ -1,0 +1,1 @@
+"C:\Program Files\R\R-4.0.4\bin\Rscript.exe" --vanilla "C:\Estudos\Entrada CD\lancamento\exc.R"

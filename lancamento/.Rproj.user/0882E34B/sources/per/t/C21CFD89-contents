@@ -1,0 +1,51 @@
+#gerando base de lan?amentos
+base_lanc<- base %>%
+  filter(FLAG == 'NOVO'
+         ,EXCESSO >= 0.3 
+         ,FAIXAPMEE != "0" 
+         ,(FAIXAPMEE %in% c("9","10","11","12","2>12") | FAIXAPMES %in% c("9","10","11","12","2>12")))%>%
+           #,month(KADE_DH_OCORR) == month(dt) & year(KADE_DH_OCORR) == year(dt)
+           select(-FLAG, -EXCESSO)
+gc()
+
+#gerando base produtos regulares
+base_reg<- base %>%
+  filter(FLAG != 'NOVO'
+         ,FAIXAPMEE != "0" 
+         ,(FAIXAPMEE %in% c("9","10","11","12","2>12") | FAIXAPMES %in% c("9","10","11","12","2>12"))
+  )%>%
+  #,month(KADE_DH_OCORR) == month(dt) & year(KADE_DH_OCORR) == year(dt)
+  select(-FLAG, -EXCESSO)
+
+gc()
+
+writexl::write_xlsx(base, "base_excesso.xlsx")
+writexl::write_xlsx(base_reg, "base_regular.xlsx")
+writexl::write_xlsx(base_lanc, "base_lancamento.xlsx")
+
+#?saveWorkbook
+
+write.csv2(categ,"categoria.csv", row.names = FALSE)
+
+gc()
+
+rm(base)
+rm(base_test)
+rm(categ)
+rm(comp)
+rm(pro)
+rm(dt)
+rm(con)
+rm(test)
+gc()
+rm(dice)
+rm(die)
+rm(meu_nome)
+rm(meu_sobrenome)
+rm(msg)
+rm(rang)
+rm(ll)
+rm(roll)
+rm(sorteio)
+gc()
+#sum(base_test$Demanda)

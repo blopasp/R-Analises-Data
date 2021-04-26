@@ -1,0 +1,26 @@
+{
+    "id": "88BABC50",
+    "path": "C:/Estudos/Entrada CD/lancamento/consultas.R",
+    "project_path": null,
+    "type": "r_source",
+    "hash": "3502830171",
+    "contents": "",
+    "dirty": false,
+    "created": 1619460558638.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "211,0",
+        "scrollLine": "0"
+    },
+    "folds": "10|44|108|0|\n109|34|157|0|\n158|41|185|0|\n186|34|209|0|\n210|42|213|0|\n214|44|241|0|\n",
+    "lastKnownWriteTime": 1615978744,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1619460637621,
+    "read_only": false,
+    "read_only_alternatives": []
+}

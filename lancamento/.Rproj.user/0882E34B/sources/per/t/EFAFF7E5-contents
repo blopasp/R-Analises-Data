@@ -1,0 +1,6 @@
+source("C:/Estudos/Entrada CD/lancamento/pacote.R")
+source("C:/Estudos/Entrada CD/lancamento/import.R")
+source("C:/Estudos/Entrada CD/lancamento/geracao.R")
+source("C:/Estudos/Entrada CD/lancamento/export.R")
+source("C:/Estudos/Entrada CD/lancamento/email.R")
+gc()

@@ -1,0 +1,120 @@
+library(RDCOMClient)
+library(stringr)
+library(lubridate)
+library(scales)
+library(purrr)
+
+#criando metricas para a base lançamento 
+soma_lanc<-round(sum(ifelse(base$FLAG=="NOVO", (base$TT_CMPG),0))/1000000,2)
+lanc<-gsub('//.', ',', soma_lanc)
+soma_elanc<-round(sum(base_lanc$TT_CMPG)/1000000,2)
+elanc<-gsub('//.', ',', soma_elanc)
+per_lanc<-as.character(percent(soma_elanc/soma_lanc))
+
+gc()
+
+#criando metricas para a base regular
+soma_reg<-round(sum(ifelse(base$FLAG=="ANTIGO", (base$TT_CMPG),0))/1000000,2)
+reg<-gsub('//.', ',', soma_reg)
+soma_ereg<-round(sum(base_reg$TT_CMPG)/1000000,2)
+ereg<-gsub('//.', ',', soma_ereg)
+per_reg<-as.character(percent(soma_ereg/soma_reg))
+
+gc()
+
+dia<-today()-1
+m<-month(dia)
+ano<-format(dia, '%y')
+dia<-format(dia, '%d/%m')
+dia<-as.character(dia)
+mes<-c("jan", "fev", "mar", "abr", "maio", "jun", "jul", "ago", "set", "out", "nov", "dez")
+mes_atual<-mes[m]
+data<-paste0(mes_atual, "/", ano)
+
+gc()
+
+corpo<-str_glue('
+<html>
+<body>
+<head>
+<td>
+<font face="Calibri">
+  <b>Bom dia, prezados</b>
+  <br>
+  <br>
+  As bases das entradas de produtos regulares e lancamentos de {data}, até o dia <b>{dia}</b>.
+  <br>
+  <br>
+  &nbsp Total entrada lancamentos {data}: <b>R$ {soma_lanc} M</b><br>
+  &nbsp Excesso lancamentos {data}: <b>R$ {soma_elanc} M({per_lanc})</b><br>
+  <br>
+  &nbsp Total entrada regular {data}: <b>R$ {soma_reg} M</b><br>
+  &nbsp Excesso regular {data}: <b>R$ {soma_ereg} M ({per_reg})</b>
+
+  <br>
+  <br>
+  Atenciosamente,
+  <br><br>
+  <td>
+  <font color="blue"><font size=5>
+    <b>Pablo Pereira</b><br>
+  </font></font></td>
+  <font color="#4F4F4F">
+    <font size=3>
+      <b>Analista de Prevenção de Perdas</b><br>
+    </font>
+    <font size=2>
+      <b>Farmácias Pague Menos I</b> Rua Senador Pompeu, 1520 I Fortaleza - CE<br>
+      Tel.: (85) 985472917<br>
+    </font>
+  </font>
+  <font size=1><br></font>
+  <img src="C:/Users/113024/Downloads/pm.png" 
+  alt="pague-menos-logo-0" width="200" height="25" style="display: block;"/>
+</td>
+</head>
+</body>
+</html>')
+
+corpo<-as.character(corpo, Encoding('UTF-8'))
+corpo<-iconv(corpo, from="UTF-8", to="latin1//TRANSLIT")
+
+gc()
+
+OutApp <- COMCreate("Outlook.Application")
+
+entMail = OutApp$CreateItem(0)
+
+entMail[["To"]] = "williamsantos@pmenos.com.br"
+entMail[["subject"]] = "Entradas CD"
+entMail[["SentOnBehalfOfName"]] = "pablopereira@pmenos.com.br"
+entMail[["htmlbody"]] = corpo
+
+attachments <- c("C:/Estudos/Entrada CD/test/base_lancamento.xlsx",
+                 "C:/Estudos/Entrada CD/test/base_regular.xlsx")
+
+purrr::map(attachments, ~ entMail[["attachments"]]$Add(.))
+
+entMail$Display()
+entMail$Send()
+
+gc()
+
+rm(dia)
+rm(mes)
+rm(ano)
+rm(corpo)
+rm(entMail)
+rm(mes_atual)
+rm(data)
+rm(soma_lanc)
+rm(lanc)
+rm(soma_elanc)
+rm(elanc)
+rm(perc_lanc)
+rm(soma_reg)
+rm(reg)
+rm(soma_ereg)
+rm(ereg)
+rm(perc_reg)
+rm(OutApp)
